@@ -1,6 +1,9 @@
 {
   "framework": "nextjs",
-  "installCommand": "npm install --ignore-scripts",
   "buildCommand": "next build",
-  "outputDirectory": ".next"
+  "outputDirectory": ".next",
+  "env": {
+    "PRISMA_GENERATE_SKIP_AUTOINSTALL": "true",
+    "PRISMA_SKIP_POSTINSTALL_GENERATE": "true"
+  }
 }
