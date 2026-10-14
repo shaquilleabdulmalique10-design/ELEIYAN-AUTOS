@@ -1,0 +1,138 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Vehicle {
+  id               String        @id @default(cuid())
+  slug             String        @unique
+  title            String
+  make             String
+  model            String
+  year             Int
+  price            BigInt
+  mileage          Int
+  fuelType         FuelType
+  transmission     Transmission
+  bodyType         BodyType
+  location         Location
+  condition        Condition
+  color            String
+  description      String        @db.Text
+  features         String[]
+  images           String[]
+  video            String?
+  gallery360       String[]
+  inspectionPdfUrl String?
+  isFeatured       Boolean       @default(false)
+  isAvailable      Boolean       @default(true)
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  leads            Lead[]
+
+  @@index([make])
+  @@index([location])
+  @@index([isFeatured])
+  @@index([isAvailable])
+}
+
+model Lead {
+  id               String     @id @default(cuid())
+  type             LeadType
+  name             String
+  email            String
+  phone            String
+  message          String?    @db.Text
+  vehicleId        String?
+  vehicle          Vehicle?   @relation(fields: [vehicleId], references: [id])
+  vehicleTitle     String?
+  status           LeadStatus @default(NEW)
+  crmId            String?
+  source           String?
+  tradeInMake      String?
+  tradeInModel     String?
+  tradeInYear      Int?
+  tradeInMileage   Int?
+  tradeInCondition String?
+  preferredDate    String?
+  preferredTime    String?
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+
+  @@index([status])
+  @@index([type])
+  @@index([createdAt])
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  role      Role     @default(EDITOR)
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Newsletter {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+enum FuelType {
+  PETROL
+  DIESEL
+  HYBRID
+  ELECTRIC
+}
+
+enum Transmission {
+  AUTOMATIC
+  MANUAL
+}
+
+enum BodyType {
+  SEDAN
+  SUV
+  COUPE
+  CONVERTIBLE
+  WAGON
+}
+
+enum Location {
+  IJEBU_ODE
+}
+
+enum Condition {
+  NEW
+  USED
+  CERTIFIED_PRE_OWNED
+}
+
+enum LeadType {
+  REQUEST_VIEWING
+  TRADE_IN
+  CONTACT
+  NEWSLETTER
+  SCHEDULE_VIEWING
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  QUALIFIED
+  CLOSED_WON
+  CLOSED_LOST
+}
+
+enum Role {
+  ADMIN
+  EDITOR
+}

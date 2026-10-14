@@ -1,0 +1,43 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: eleniyan_postgres
+    environment:
+      POSTGRES_DB: eleniyan
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Optional: Strapi CMS (run separately or via Railway/Render)
+  # strapi:
+  #   image: strapi/strapi:4-alpine
+  #   container_name: eleniyan_strapi
+  #   environment:
+  #     DATABASE_CLIENT: postgres
+  #     DATABASE_HOST: postgres
+  #     DATABASE_PORT: 5432
+  #     DATABASE_NAME: eleniyan_strapi
+  #     DATABASE_USERNAME: postgres
+  #     DATABASE_PASSWORD: password
+  #     APP_KEYS: toBeModified1,toBeModified2
+  #     API_TOKEN_SALT: tobemodified
+  #     ADMIN_JWT_SECRET: tobemodified
+  #     JWT_SECRET: tobemodified
+  #   ports:
+  #     - '1337:1337'
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy
+
+volumes:
+  postgres_data:
