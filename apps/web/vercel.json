@@ -1,7 +1,6 @@
 {
   "framework": "nextjs",
-  "buildCommand": "cd ../.. && npm run build:web",
-  "outputDirectory": ".next",
-  "installCommand": "cd ../.. && npm install",
-  "regions": ["fra1"]
+  "installCommand": "npm install",
+  "buildCommand": "cd ../api && npx prisma generate --schema=src/prisma/schema.prisma && cd ../web && next build",
+  "outputDirectory": ".next"
 }
