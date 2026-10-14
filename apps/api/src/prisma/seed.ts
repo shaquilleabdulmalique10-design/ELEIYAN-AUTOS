@@ -5,166 +5,123 @@ const prisma = new PrismaClient()
 
 const VEHICLES = [
   {
-    slug: '2023-rolls-royce-ghost',
-    title: '2023 Rolls-Royce Ghost',
-    make: 'Rolls-Royce',
-    model: 'Ghost',
-    year: 2023,
-    price: BigInt(38_000_000_00), // ₦380,000,000 in kobo
-    mileage: 4200,
+    slug: '2022-toyota-camry',
+    title: '2022 Toyota Camry XSE',
+    make: 'Toyota',
+    model: 'Camry',
+    year: 2022,
+    price: BigInt('850000000'),
+    mileage: 32000,
     fuelType: 'PETROL' as const,
     transmission: 'AUTOMATIC' as const,
     bodyType: 'SEDAN' as const,
-    location: 'LAGOS' as const,
+    location: 'IJEBU_ODE' as const,
     condition: 'USED' as const,
-    color: 'Andalucian White',
-    importSource: 'UK' as const,
+    color: 'Pearl White',
     isFeatured: true,
-    description:
-      'An immaculate 2023 Rolls-Royce Ghost in Andalucian White with an Obsidian Black interior. This UK-imported example presents beautifully with only 4,200 km. Specification includes starlight headliner, panoramic sunroof, massage seats, and the full Bespoke Audio system. Full Rolls-Royce service history.',
-    features: [
-      'Starlight Headliner', 'Panoramic Sunroof', 'Bespoke Audio', 'Massage Seats',
-      'Night Vision', 'Head-Up Display', 'Four-Zone Climate', 'Rear Entertainment',
-    ],
-    images: [
-      'https://images.unsplash.com/photo-1563720223185-11003d516935?w=1200&q=85',
-      'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=1200&q=85',
-    ],
+    description: 'Very clean 2022 Toyota Camry XSE in Pearl White. Full AC, perfect engine, no fault. Registered in Ogun State.',
+    features: ['Leather Seats', 'Reverse Camera', 'Apple CarPlay', 'Blind Spot Monitor', 'Push Start'],
+    images: ['https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=1200&q=85'],
     gallery360: [],
   },
   {
-    slug: '2022-bentley-bentayga-v8',
-    title: '2022 Bentley Bentayga V8',
-    make: 'Bentley',
-    model: 'Bentayga',
-    year: 2022,
-    price: BigInt(22_500_000_00),
-    mileage: 11_000,
+    slug: '2021-lexus-rx350',
+    title: '2021 Lexus RX 350',
+    make: 'Lexus',
+    model: 'RX',
+    year: 2021,
+    price: BigInt('2200000000'),
+    mileage: 28000,
     fuelType: 'PETROL' as const,
     transmission: 'AUTOMATIC' as const,
     bodyType: 'SUV' as const,
-    location: 'ABUJA' as const,
+    location: 'IJEBU_ODE' as const,
     condition: 'USED' as const,
-    color: 'Onyx Black',
-    importSource: 'US' as const,
+    color: 'Obsidian Black',
     isFeatured: true,
-    description:
-      'A stunning 2022 Bentley Bentayga V8 finished in Onyx Black over Beluga leather. US-imported with 11,000 km. Features include the Touring specification, carbon ceramic brakes, and 22-inch directional alloy wheels. Bentley service history maintained.',
-    features: [
-      'Carbon Ceramic Brakes', '22" Directional Alloys', 'Touring Specification',
-      'Naim Audio', 'Panoramic Sunroof', 'Heated/Ventilated Seats', 'Massage Seats',
-    ],
-    images: [
-      'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1200&q=85',
-    ],
+    description: 'Sharp 2021 Lexus RX 350 in Obsidian Black. Full leather, panoramic roof, all round camera. No issues whatsoever.',
+    features: ['Panoramic Sunroof', 'All-Round Camera', 'Heated Seats', 'Mark Levinson Audio', 'Lane Assist'],
+    images: ['https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=1200&q=85'],
     gallery360: [],
   },
   {
-    slug: '2023-range-rover-autobiography',
-    title: '2023 Range Rover Autobiography SWB',
-    make: 'Range Rover',
-    model: 'Range Rover',
-    year: 2023,
-    price: BigInt(14_500_000_00),
-    mileage: 6_800,
+    slug: '2020-mercedes-benz-gle450',
+    title: '2020 Mercedes-Benz GLE 450',
+    make: 'Mercedes-Benz',
+    model: 'GLE',
+    year: 2020,
+    price: BigInt('3500000000'),
+    mileage: 41000,
     fuelType: 'PETROL' as const,
     transmission: 'AUTOMATIC' as const,
     bodyType: 'SUV' as const,
-    location: 'LAGOS' as const,
+    location: 'IJEBU_ODE' as const,
     condition: 'USED' as const,
-    color: 'Santorini Black',
-    importSource: 'UK' as const,
+    color: 'Polar White',
     isFeatured: true,
-    description:
-      'A virtually new 2023 Range Rover Autobiography in Santorini Black. UK supplied with a full Land Rover warranty until 2026. Specification includes SV Bespoke seating, panoramic sunroof, Meridian Signature Sound, and executive rear seat package.',
-    features: [
-      'SV Bespoke Seating', 'Meridian Signature Sound', 'Executive Rear Seats',
-      'Panoramic Sunroof', 'Pixel LED Headlights', 'Air Suspension', 'Wade Sensing',
-    ],
-    images: [
-      'https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?w=1200&q=85',
-    ],
+    description: '2020 Mercedes-Benz GLE 450 AMG Line in Polar White. Full option, Burmester sound, MBUX display, panoramic roof. Excellent condition.',
+    features: ['Burmester Sound', 'MBUX System', 'Panoramic Roof', 'Air Suspension', 'AMG Line'],
+    images: ['https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&q=85'],
     gallery360: [],
   },
   {
-    slug: '2023-mercedes-maybach-s580',
-    title: '2023 Mercedes-Maybach S 580 4MATIC',
-    make: 'Maybach',
-    model: 'S 580',
+    slug: '2023-toyota-prado',
+    title: '2023 Toyota Land Cruiser Prado',
+    make: 'Toyota',
+    model: 'Prado',
     year: 2023,
-    price: BigInt(19_800_000_00),
-    mileage: 3_100,
+    price: BigInt('5800000000'),
+    mileage: 12000,
+    fuelType: 'PETROL' as const,
+    transmission: 'AUTOMATIC' as const,
+    bodyType: 'SUV' as const,
+    location: 'IJEBU_ODE' as const,
+    condition: 'USED' as const,
+    color: 'Graphite',
+    isFeatured: true,
+    description: 'Virtually new 2023 Toyota Land Cruiser Prado in Graphite. Very low mileage, full leather, 7 seats, sunroof.',
+    features: ['7 Seater', 'Sunroof', 'Full Leather', 'Multi-Terrain Select', 'Crawl Control'],
+    images: ['https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?w=1200&q=85'],
+    gallery360: [],
+  },
+  {
+    slug: '2019-honda-accord',
+    title: '2019 Honda Accord Sport',
+    make: 'Honda',
+    model: 'Accord',
+    year: 2019,
+    price: BigInt('650000000'),
+    mileage: 55000,
     fuelType: 'PETROL' as const,
     transmission: 'AUTOMATIC' as const,
     bodyType: 'SEDAN' as const,
-    location: 'LAGOS' as const,
+    location: 'IJEBU_ODE' as const,
     condition: 'USED' as const,
-    color: 'High-Tech Silver / Obsidian Black',
-    importSource: 'US' as const,
-    isFeatured: true,
-    description:
-      'The pinnacle of luxury motoring. This 2023 Mercedes-Maybach S 580 in the iconic two-tone Silver/Black finish. US-imported with 3,100 km. Features the Maybach exclusive package with Bicolor Nappa leather, rear executive suite, and Burmester 4D surround sound.',
-    features: [
-      'Bicolor Nappa Leather', 'Rear Executive Suite', 'Burmester 4D Sound',
-      'Rear Seat Massage', 'MBUX Entertainment', 'E-Active Body Control', 'Nightvision',
-    ],
-    images: [
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200&q=85',
-    ],
+    color: 'Modern Steel',
+    isFeatured: false,
+    description: '2019 Honda Accord Sport 1.5T in Modern Steel. Clean interior, no accident, good tyres. Perfect family car.',
+    features: ['Honda Sensing', 'Wireless CarPlay', 'Remote Start', 'Lane Keeping Assist'],
+    images: ['https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1200&q=85'],
     gallery360: [],
   },
   {
-    slug: '2022-porsche-cayenne-turbo',
-    title: '2022 Porsche Cayenne Turbo GT',
-    make: 'Porsche',
-    model: 'Cayenne',
+    slug: '2022-ford-explorer',
+    title: '2022 Ford Explorer XLT',
+    make: 'Ford',
+    model: 'Explorer',
     year: 2022,
-    price: BigInt(17_200_000_00),
-    mileage: 8_500,
+    price: BigInt('1900000000'),
+    mileage: 22000,
     fuelType: 'PETROL' as const,
     transmission: 'AUTOMATIC' as const,
     bodyType: 'SUV' as const,
-    location: 'PORT_HARCOURT' as const,
+    location: 'IJEBU_ODE' as const,
     condition: 'USED' as const,
-    color: 'GT Silver Metallic',
-    importSource: 'UK' as const,
+    color: 'Rapid Red',
     isFeatured: false,
-    description:
-      'The definitive performance SUV. This 2022 Cayenne Turbo GT in GT Silver features the full aerodynamic package, carbon fibre interior trim, and Porsche ceramic composite brakes. UK supplied with full Porsche warranty.',
-    features: [
-      'PCCB Ceramic Brakes', 'Carbon Interior', 'Sport Chrono Package',
-      'Burmester Surround Sound', 'Panoramic Sunroof', '22" RS Spyder Design Wheels',
-    ],
-    images: [
-      'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=1200&q=85',
-    ],
-    gallery360: [],
-  },
-  {
-    slug: '2022-bmw-x7-m60i',
-    title: '2022 BMW X7 M60i xDrive',
-    make: 'BMW',
-    model: 'X7',
-    year: 2022,
-    price: BigInt(11_000_000_00),
-    mileage: 14_200,
-    fuelType: 'PETROL' as const,
-    transmission: 'AUTOMATIC' as const,
-    bodyType: 'SUV' as const,
-    location: 'ABUJA' as const,
-    condition: 'USED' as const,
-    color: 'Frozen Portimao Blue',
-    importSource: 'US' as const,
-    isFeatured: false,
-    description:
-      'A commanding 2022 BMW X7 M60i in the stunning Frozen Portimao Blue. US-imported with 14,200 km. Seven-seat configuration with Bowers & Wilkins Diamond Surround Sound, Sky Lounge panoramic roof, and full BMW Individual specification.',
-    features: [
-      'Bowers & Wilkins Diamond Audio', 'Sky Lounge Panoramic Roof', '7-Seat Configuration',
-      'BMW Individual', 'Heated/Ventilated Seats', '23" M Light Alloys', 'Soft Close Doors',
-    ],
-    images: [
-      'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1200&q=85',
-    ],
+    description: '2022 Ford Explorer XLT in Rapid Red. 3-row seating, SYNC 4 system, very clean with all service records.',
+    features: ['3-Row Seating', 'SYNC 4', 'Co-Pilot 360', 'Panoramic Vista Roof', 'B&O Audio'],
+    images: ['https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=1200&q=85'],
     gallery360: [],
   },
 ]
@@ -172,7 +129,6 @@ const VEHICLES = [
 async function main() {
   console.log('🌱 Seeding database...')
 
-  // Create admin user
   const hashedPassword = await bcrypt.hash('Admin@Eleniyan2024!', 12)
   const admin = await prisma.user.upsert({
     where: { email: 'admin@eleniyan.com' },
@@ -180,23 +136,22 @@ async function main() {
     create: {
       email: 'admin@eleniyan.com',
       password: hashedPassword,
-      name: 'Admin User',
+      name: 'Eleniyan Admin',
       role: 'ADMIN',
     },
   })
-  console.log(`✅ Admin user: ${admin.email}`)
+  console.log(`✅ Admin: ${admin.email}`)
 
-  // Create vehicles
   for (const v of VEHICLES) {
     await prisma.vehicle.upsert({
       where: { slug: v.slug },
       update: {},
       create: v,
     })
-    console.log(`✅ Vehicle: ${v.title}`)
+    console.log(`✅ ${v.title}`)
   }
 
-  console.log('✨ Seed complete!')
+  console.log('🎉 Seed complete!')
 }
 
 main()
