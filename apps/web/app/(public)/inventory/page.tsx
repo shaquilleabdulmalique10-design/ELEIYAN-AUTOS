@@ -23,7 +23,7 @@ export default async function InventoryPage({ searchParams }: PageProps) {
   const sp = searchParams as Record<string, string>
   const page = Number(sp.page) || 1
 
-  let result = { data: [], total: 0, page: 1, limit: 12, totalPages: 0 }
+  let result: { data: import('@eleniyan/types').VehicleListItem[]; total: number; page: number; limit: number; totalPages: number } = { data: [], total: 0, page: 1, limit: 12, totalPages: 0 }
   try {
     result = await getVehicles({
       make: sp.make,
