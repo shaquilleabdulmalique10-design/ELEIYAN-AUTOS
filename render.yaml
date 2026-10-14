@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: eleniyan-api
+    runtime: node
+    rootDir: apps/api
+    buildCommand: npm install && npx prisma generate --schema=src/prisma/schema.prisma && npm run build
+    startCommand: node dist/index.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: DIRECT_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: ALLOWED_ORIGINS
+        sync: false
+      - key: WHATSAPP_SALES_NUMBER
+        value: 2349036942616
+      - key: FROM_EMAIL
+        value: eleniyanautos@gmail.com
+      - key: BUSINESS_EMAIL
+        value: eleniyanautos@gmail.com
