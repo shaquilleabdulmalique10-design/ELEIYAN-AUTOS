@@ -86,6 +86,28 @@ model Newsletter {
   createdAt DateTime @default(now())
 }
 
+model BlogPost {
+  id          String      @id @default(cuid())
+  slug        String      @unique
+  title       String
+  excerpt     String
+  body        String      @db.Text
+  coverImage  String?
+  author      String      @default("Eleniyan Motors")
+  category    BlogCategory @default(CAR_NEWS)
+  tags        String[]
+  published   Boolean     @default(false)
+  publishedAt DateTime?
+  seoTitle    String?
+  seoDesc     String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@index([published])
+  @@index([category])
+  @@index([slug])
+}
+
 enum FuelType {
   PETROL
   DIESEL
@@ -135,4 +157,11 @@ enum LeadStatus {
 enum Role {
   ADMIN
   EDITOR
+}
+
+enum BlogCategory {
+  CAR_NEWS
+  MAINTENANCE_TIPS
+  CAR_OF_THE_WEEK
+  BUYING_GUIDE
 }

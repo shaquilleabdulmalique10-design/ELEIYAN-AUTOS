@@ -8,6 +8,7 @@ import leadRoutes from './routes/leads'
 import authRoutes from './routes/auth'
 import uploadRoutes from './routes/uploads'
 import newsletterRoutes from './routes/newsletters'
+import blogRoutes from './routes/blog'
 import { errorHandler } from './middleware/errorHandler'
 
 const app = express()
@@ -34,6 +35,7 @@ app.use('/api/leads', leadRoutes)
 app.use('/api/auth', authRoutes)
 app.use('/api/uploads', uploadRoutes)
 app.use('/api/newsletters', newsletterRoutes)
+app.use('/api/blog', blogRoutes)
 
 // ─── Error handler ────────────────────────────────────────────────────────────
 app.use(errorHandler)
