@@ -22,7 +22,7 @@ const EMPTY_FORM = {
 }
 
 export default function AdminBlogPage() {
-  const { data: session } = useSession()
+  const { data: session, status } = useSession()
   const token = (session?.user as { accessToken?: string })?.accessToken ?? ''
 
   const [posts, setPosts] = useState<BlogPost[]>([])
@@ -39,11 +39,12 @@ export default function AdminBlogPage() {
     if (!token) return
     setLoading(true)
     try {
-      const res = await getBlogPosts({ published: 'all', limit: '50' })
+      const res = await getBlogPosts({ limit: '50' })
       setPosts(res.data)
       setTotal(res.total)
-    } catch {
+    } catch (err) {
       toast.error('Failed to load blog posts')
+      console.error('Blog fetch error:', err)
     } finally {
       setLoading(false)
     }
@@ -91,6 +92,10 @@ export default function AdminBlogPage() {
       toast.error('Title, excerpt and body are required')
       return
     }
+    if (!token) {
+      toast.error('Not authenticated. Please refresh and log in again.')
+      return
+    }
     setSaving(true)
     try {
       if (editing) {
@@ -102,8 +107,10 @@ export default function AdminBlogPage() {
       }
       setShowForm(false)
       fetchPosts()
-    } catch {
-      toast.error('Failed to save post')
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Failed to save post'
+      toast.error(msg)
+      console.error('Save error:', err)
     } finally {
       setSaving(false)
     }

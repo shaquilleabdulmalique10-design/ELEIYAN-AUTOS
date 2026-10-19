@@ -30,8 +30,10 @@ router.get('/', async (req, res, next) => {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const where: any = {}
+    // Only filter by published if explicitly passed
     if (published === 'true') where.published = true
-    if (category) where.category = category
+    else if (published === 'false') where.published = false
+    // If not passed or 'all', return everything
 
     const pageNum = Math.max(1, Number(page))
     const limitNum = Math.min(50, Number(limit))
