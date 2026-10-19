@@ -1,7 +1,7 @@
 [build]
   base = "apps/web"
-  command = "npm --workspace @eleniyan/web run build"
-  publish = "apps/web/.next"
+  command = "next build"
+  publish = ".next"
 
 [build.environment]
   SECRETS_SCAN_OMIT_KEYS = "STRAPI_URL,STRAPI_API_TOKEN"
