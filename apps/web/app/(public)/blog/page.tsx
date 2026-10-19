@@ -28,7 +28,7 @@ export default async function BlogPage({ searchParams }: PageProps) {
   const category = searchParams.category || ''
   const page = Number(searchParams.page) || 1
 
-  let result = { data: [], total: 0, page: 1, totalPages: 0 }
+  let result: { data: BlogPost[]; total: number; page: number; totalPages: number } = { data: [], total: 0, page: 1, totalPages: 0 }
   try {
     const params: Record<string, string> = { page: String(page), limit: '9' }
     if (category) params.category = category
