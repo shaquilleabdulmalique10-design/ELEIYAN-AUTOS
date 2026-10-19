@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Calendar, User, Tag, ArrowRight } from 'lucide-react'
-import { getBlogPosts } from '@/lib/api'
+import { getBlogPosts, type BlogPost } from '@/lib/api'
 import { formatDate } from '@/lib/utils'
 
 export const revalidate = 300 // 5 minutes
