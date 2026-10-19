@@ -250,7 +250,6 @@ export default function AdminBlogPage() {
       {/* Create / Edit Form */}
       {showForm && (
         <div className="bg-white rounded-card shadow-card overflow-hidden">
-          {/* Form header */}
           <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
             <h2 className="font-heading text-base text-navy">
               {editing ? 'Edit Post' : 'New Blog Post'}
@@ -261,7 +260,6 @@ export default function AdminBlogPage() {
           </div>
 
           <div className="p-6 space-y-5">
-            {/* Title */}
             <div>
               <label className="form-label">Title <span className="text-red-500">*</span></label>
               <input
@@ -273,7 +271,6 @@ export default function AdminBlogPage() {
               />
             </div>
 
-            {/* Excerpt */}
             <div>
               <label className="form-label">Excerpt <span className="text-red-500">*</span></label>
               <textarea
@@ -285,7 +282,6 @@ export default function AdminBlogPage() {
               />
             </div>
 
-            {/* Body */}
             <div>
               <label className="form-label">Body <span className="text-red-500">*</span></label>
               <textarea
@@ -298,7 +294,6 @@ export default function AdminBlogPage() {
               <p className="text-xs text-gray-400 mt-1">Supports Markdown: **bold**, *italic*, # Heading, - list items</p>
             </div>
 
-            {/* Cover Image + Category */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div>
                 <label className="form-label">Cover Image URL</label>
@@ -322,7 +317,6 @@ export default function AdminBlogPage() {
               </div>
             </div>
 
-            {/* Author */}
             <div>
               <label className="form-label">Author</label>
               <input
@@ -334,7 +328,6 @@ export default function AdminBlogPage() {
               />
             </div>
 
-            {/* Tags */}
             <div>
               <label className="form-label">Tags</label>
               <div className="flex gap-2 mb-2">
@@ -360,7 +353,6 @@ export default function AdminBlogPage() {
               </div>
             </div>
 
-            {/* SEO */}
             <div className="border border-gray-100 rounded-card p-4 space-y-3">
               <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">SEO (Optional)</p>
               <div>
@@ -385,7 +377,6 @@ export default function AdminBlogPage() {
               </div>
             </div>
 
-            {/* Publish toggle */}
             <div className="flex items-center gap-3 pt-2">
               <input
                 type="checkbox"
@@ -399,7 +390,6 @@ export default function AdminBlogPage() {
               </label>
             </div>
 
-            {/* Actions */}
             <div className="flex gap-3 justify-end pt-2 border-t border-gray-100">
               <button onClick={() => setShowForm(false)} className="btn-secondary text-sm">Cancel</button>
               <button onClick={handleSave} disabled={saving} className="btn-primary gap-2 text-sm">

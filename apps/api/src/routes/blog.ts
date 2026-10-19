@@ -25,7 +25,7 @@ const blogSchema = z.object({
 router.get('/', async (req, res, next) => {
   try {
     const {
-      category, page = '1', limit = '9', published = 'true',
+      category, page = '1', limit = '9', published,
     } = req.query as Record<string, string>
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -33,7 +33,8 @@ router.get('/', async (req, res, next) => {
     // Only filter by published if explicitly passed
     if (published === 'true') where.published = true
     else if (published === 'false') where.published = false
-    // If not passed or 'all', return everything
+    // If not passed, return everything (used by admin)
+    if (category) where.category = category
 
     const pageNum = Math.max(1, Number(page))
     const limitNum = Math.min(50, Number(limit))
@@ -43,7 +44,7 @@ router.get('/', async (req, res, next) => {
       prisma.blogPost.count({ where }),
       prisma.blogPost.findMany({
         where,
-        orderBy: { publishedAt: 'desc' },
+        orderBy: { createdAt: 'desc' },
         skip,
         take: limitNum,
         select: {
@@ -102,7 +103,6 @@ router.put('/:id', verifyJWT, async (req, res, next) => {
   try {
     const data = blogSchema.partial().parse(req.body)
 
-    // If publishing for the first time, set publishedAt
     const existing = await prisma.blogPost.findUnique({ where: { id: req.params.id } })
     const publishedAt = data.published && !existing?.published ? new Date() : existing?.publishedAt
 
