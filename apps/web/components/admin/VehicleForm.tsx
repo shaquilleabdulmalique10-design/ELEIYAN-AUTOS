@@ -74,14 +74,35 @@ export default function VehicleForm({ vehicle }: VehicleFormProps) {
     try {
       const uploaded: string[] = []
       for (const file of files) {
-        const { uploadUrl, fileUrl } = await getUploadUrl(file.name, file.type, token)
-        await fetch(uploadUrl, { method: 'PUT', body: file, headers: { 'Content-Type': file.type } })
-        uploaded.push(fileUrl)
+        // Get signed params from our API
+        const { uploadUrl, fileUrl, cloudinaryParams } = await getUploadUrl(file.name, file.type, token)
+
+        // Upload directly to Cloudinary using signed params
+        const formData = new FormData()
+        formData.append('file', file)
+        formData.append('api_key', cloudinaryParams.api_key)
+        formData.append('timestamp', String(cloudinaryParams.timestamp))
+        formData.append('signature', cloudinaryParams.signature)
+        formData.append('public_id', cloudinaryParams.public_id)
+        formData.append('folder', cloudinaryParams.folder)
+
+        const uploadRes = await fetch(uploadUrl, {
+          method: 'POST',
+          body: formData,
+        })
+
+        if (!uploadRes.ok) {
+          const err = await uploadRes.json()
+          throw new Error(err.error?.message || 'Upload failed')
+        }
+
+        const result = await uploadRes.json()
+        uploaded.push(result.secure_url)
       }
       setImages((prev) => [...prev, ...uploaded])
       toast.success(`${uploaded.length} image(s) uploaded`)
-    } catch {
-      toast.error('Upload failed. Please try again.')
+    } catch (err) {
+      toast.error(`Upload failed: ${(err as Error).message}`)
     } finally {
       setUploading(false)
     }

@@ -104,7 +104,7 @@ export async function getUploadUrl(
   filename: string,
   contentType: string,
   token: string
-): Promise<{ uploadUrl: string; fileUrl: string }> {
+): Promise<{ uploadUrl: string; fileUrl: string; cloudinaryParams: { api_key: string; timestamp: number; signature: string; public_id: string; folder: string } }> {
   return fetcher('/api/uploads/image', {
     method: 'POST',
     headers: { Authorization: `Bearer ${token}` },
