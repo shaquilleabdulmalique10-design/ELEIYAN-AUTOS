@@ -1,9 +1,10 @@
 'use client'
 
 import { signOut } from 'next-auth/react'
-import { Bell, LogOut, User, ChevronDown } from 'lucide-react'
+import { Bell, LogOut, User, ChevronDown, Menu } from 'lucide-react'
 import { useState } from 'react'
 import { cn } from '@/lib/utils'
+import { useSidebar } from './AdminSidebar'
 
 interface AdminHeaderProps {
   user?: {
@@ -15,23 +16,32 @@ interface AdminHeaderProps {
 
 export default function AdminHeader({ user }: AdminHeaderProps) {
   const [dropdownOpen, setDropdownOpen] = useState(false)
+  const { setMobileOpen } = useSidebar()
 
   return (
-    <header className="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 shrink-0">
-      {/* Left: breadcrumb placeholder / page title slot */}
-      <div>
-        <p className="text-xs text-gray-400 uppercase tracking-widest">Eleniyan Motors</p>
+    <header className="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-4 sm:px-6 shrink-0">
+      {/* Left: hamburger (mobile) */}
+      <div className="flex items-center gap-3">
+        <button
+          onClick={() => setMobileOpen(true)}
+          className="md:hidden p-2 rounded-sm text-gray-500 hover:text-navy hover:bg-gray-100 transition-colors"
+          aria-label="Open navigation menu"
+        >
+          <Menu className="w-5 h-5" />
+        </button>
+        <p className="text-xs text-gray-400 uppercase tracking-widest hidden sm:block">
+          Eleniyan Motors
+        </p>
       </div>
 
       {/* Right: actions */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2 sm:gap-3">
         {/* Notification bell */}
         <button
           className="relative w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:text-navy hover:border-gold transition-colors"
           aria-label="Notifications"
         >
           <Bell className="w-4 h-4" />
-          {/* Unread dot */}
           <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-gold rounded-full" aria-hidden="true" />
         </button>
 
@@ -39,7 +49,7 @@ export default function AdminHeader({ user }: AdminHeaderProps) {
         <div className="relative">
           <button
             onClick={() => setDropdownOpen((v) => !v)}
-            className="flex items-center gap-2.5 pl-3 pr-2 py-1.5 rounded-full border border-gray-200 hover:border-gold transition-colors"
+            className="flex items-center gap-2 pl-2 sm:pl-3 pr-2 py-1.5 rounded-full border border-gray-200 hover:border-gold transition-colors"
             aria-expanded={dropdownOpen}
             aria-haspopup="true"
             aria-label="User menu"
@@ -60,7 +70,6 @@ export default function AdminHeader({ user }: AdminHeaderProps) {
 
           {dropdownOpen && (
             <>
-              {/* Backdrop */}
               <div
                 className="fixed inset-0 z-10"
                 onClick={() => setDropdownOpen(false)}
